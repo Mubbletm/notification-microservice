@@ -16,8 +16,14 @@ notFoundHandler.get(/.*/, (ctx: Koa.Context) => {
 	throw new HTTPExceptions.NotFoundException(`Endpoint ${ctx.path} doesn't exist.`);
 });
 
-app.use(errorHandler);
+async function addVAPIDkey(ctx: Koa.Context, next: Koa.Next) {
+	ctx.cookies.set('vapid', process.env['PUBLIC_VAPID_KEY'], {httpOnly: false});
+	await next();
+}
+
 app.use(cors({allowMethods: ['GET', 'DELETE', 'POST', 'OPTIONS']}));
+app.use(errorHandler);
+app.use(addVAPIDkey);
 app.use(serve('./src/public', {extensions: ['html']}));
 app.use(bodyParser());
 app.use(NotificationRouter.routes());

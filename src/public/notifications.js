@@ -1,4 +1,10 @@
-const publicKey = 'BC5Vrvd09F2PS8s4QHUcRKlYbP4Z0Nstdy2hmbq5PgBbZWfu6mvV9kDsMY-HCE39r2L2tsbctU_lX73f48ZCmhw';
+const cookie = document.cookie
+	.split('; ')
+	.map(o => o.split('='))
+	.find(o => o[0] === 'vapid');
+
+if (!cookie) throw new Error('Couldn\'t retrieve public VAPID key.');
+const publicKey = cookie[1];
 
 /**
  * @param {string} formId
