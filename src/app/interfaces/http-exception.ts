@@ -2,7 +2,7 @@ import HttpStatus from 'http-status-codes';
 import Koa from 'koa';
 import send from 'koa-send';
 
-export abstract class Exception extends Error {
+export abstract class HTTPException extends Error {
 	public readonly statusCode: number;
 
 	public constructor(statusCode: number, reason: string = 'An error has occured.') {
@@ -11,12 +11,12 @@ export abstract class Exception extends Error {
 	}
 
 	public async requestHandler(ctx: Koa.Context): Promise<void> {
-		ctx.body = super.message;
+		ctx.body = this.message;
 		ctx.status = this.statusCode;
 	};
 }
 
-class NotFoundException extends Exception {
+class NotFoundException extends HTTPException {
 	constructor(reason: string = 'Couldn\'t find resource.') {
 		super(HttpStatus.NOT_FOUND, reason);
 	}
@@ -28,13 +28,20 @@ class NotFoundException extends Exception {
 	}
 }
 
-class BadRequestException extends Exception {
+class BadRequestException extends HTTPException {
 	constructor(reason: string = 'Couldn\'t find resource.') {
 		super(HttpStatus.BAD_REQUEST, reason);
 	}
 }
 
+class Unauthorized extends HTTPException {
+	constructor(reason: string = 'Unauthorized') {
+		super(HttpStatus.UNAUTHORIZED, reason);
+	}
+}
+
 export const HTTPExceptions = {
 	NotFoundException,
-	BadRequestException
+	BadRequestException,
+	Unauthorized
 };

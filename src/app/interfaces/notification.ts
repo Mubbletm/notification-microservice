@@ -27,22 +27,8 @@ interface NotificationOptions {
 	/** @experimental */
 	vibrate?: number[]
 }
-export class Notification {
-	public readonly title: string;
-	public get options(): NotificationOptions { return JSON.parse(JSON.stringify(this._options)); };
 
-	constructor(title: string, options: NotificationOptions = {}) {
-		this.title = title;
-		this._options = options;
-	}
-
-	private readonly _options: NotificationOptions;
-
-	public toJSON() {
-		return JSON.stringify({
-			title: this.title,
-			options: this.options
-		});
-	}
+export interface Notification {
+	title: string,
+	options?: NotificationOptions
 }
-

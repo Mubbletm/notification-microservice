@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Notification API Documentation</title>
+    <link rel="stylesheet" href="/style.css">
+    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?skin=sunburst"></script>
+</head>
+<body>
+<div class="container">
+    <a href="/">< Go back</a>
+    <br>
+    <fieldset>
+        <h1 id="models">Models</h1>
+        <h2 id="notification">Notification</h2>
+        <code class="prettyprint">
+            {
+                title: string
+                options?: {
+                    actions?: {
+                        action: string,
+                        title: string,
+                        icon: string
+                    }[],
+                    badge?: string,
+                    image?: string,
+                    icon?: string,
+                    body?: string,
+                    data?: any,
+                    dir?: 'auto' | 'ltr' | 'rtl',
+                    lang?: string,
+                    requireInteraction?: boolean,
+                    renotify?: boolean,
+                    tag?: string,
+                    silent?: boolean,
+                    timestamp?: number,
+                    vibrate?: number[]
+                }
+            }
+        </code>
+        <i>Do not create a Notification instance in the browser, as this will show the notification to the client upon initialization.</i>
+        <a href="https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration/showNotification#title">More information</a>
+        <h2 id="subscription">Subscription</h2>
+        <code class="prettyprint">
+            {
+                endpoint: string,
+                keys: {
+                    auth: string,
+                    p256dh: string
+                },
+                expirationTime?: <a href="https://developer.mozilla.org/en-US/docs/Web/API/DOMHighResTimeStamp">DOMHighResTimeStamp</a>
+            }
+        </code>
+        <a href="https://developer.mozilla.org/en-US/docs/Web/API/PushSubscription">More information</a>
+    </fieldset>
+    <br>
+    <fieldset>
+        <h1>Endpoints</h1>
+        <h2><code class="method post">POST</code> /schedule</h2>
+        <h3>Body</h3>
+        <code class="prettyprint">
+            {
+                date: number,
+                notification: <a href="#notification">Notification</a>,
+                subscription: <a href="#subscription">Subscription</a>
+            }
+        </code>
+        <h3>Responses</h3>
+        <p>The response for when your request was successfully handled.</p>
+        <code class="prettyprint">
+            200 OK
+        </code>
+        <p>The response for when your body has incorrectly formatted, or missing, fields.</p>
+        <code class="prettyprint">
+            400 Bad Request
+        </code>
+        <h2><code class="method post">POST</code> /cron</h2>
+        <h3>Body</h3>
+        <code class="prettyprint">
+            {
+                cron: string,
+                notification: <a href="#notification">Notification</a>,
+                subscription: <a href="#subscription">Subscription</a>
+            }
+        </code>
+        <h3>Responses</h3>
+        <p>Responds with a JW token that can be used to delete the task.</p>
+        <code class="prettyprint">
+            200 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0...
+        </code>
+        <p>The response for when your body has incorrectly formatted, or missing, fields.</p>
+        <code class="prettyprint">
+            400 Bad Request
+        </code>
+        <h2><code class="method delete">DELETE</code> /cron</h2>
+        <h3>Header</h3>
+        <p>You have to provide a JW token in the <code>job-jwt</code> header. The token that has to be provided was sent to the client upon the creation of a cron notification.</p>
+        <code class="prettyprint">
+            {
+                'job-jwt': 'eyJhbGciOiJIUzI1NiIsInR5cCI6Ikp...'
+            }
+        </code>
+        <h3>Responses</h3>
+        <p>The response for when your request was successfully handled.</p>
+        <code class="prettyprint">
+            200 OK
+        </code>
+        <p>The response for when your body has incorrectly formatted, or missing, fields.</p>
+        <code class="prettyprint">
+            400 Bad Request
+        </code>
+        <h2><code class="method post">POST</code> /now</h2>
+        <h3>Body</h3>
+        <code class="prettyprint">
+            {
+                notification: <a href="#notification">Notification</a>,
+                subscription: <a href="#subscription">Subscription</a>
+            }
+        </code>
+        <h3>Responses</h3>
+        <p>The response for when your request was successfully handled.</p>
+        <code class="prettyprint">
+            200 OK
+        </code>
+        <p>The response for when your body has incorrectly formatted, or missing, fields.</p>
+        <code class="prettyprint">
+            400 Bad Request
+        </code>
+    </fieldset>
+    <br>
+    <a href="/">< Go back</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,15 @@
+services:
+  web:
+    build: .
+    ports:
+      - "90:8000"
+    env_file:
+      - path: ./.env
+        required: true
+    environment:
+      DATABASE: "mongodb://mongo:27017"
+      JWT_SECRET: ${JWT_SECRET}
+      PUBLIC_VAPID_KEY: ${PUBLIC_VAPID_KEY}
+      PRIVATE_VAPID_KEY: ${PRIVATE_VAPID_KEY}
+  mongo:
+    image: "mongo:latest"

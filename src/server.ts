@@ -2,11 +2,12 @@ import 'dotenv/config';
 import Koa from 'koa';
 import Router from '@koa/router';
 import { bodyParser } from '@koa/bodyparser';
-import { HTTPExceptions } from './app/exception';
+import { HTTPExceptions } from './app/interfaces/http-exception';
 import serve from 'koa-static';
 
 import errorHandler from './app/middleware/error-handler';
-import { NotificationController } from './app/controllers/notification-controller';
+import { NotificationRouter } from './app/middleware/notification-router';
+import cors from '@koa/cors';
 
 const app = new Koa();
 
@@ -16,9 +17,11 @@ notFoundHandler.get(/.*/, (ctx: Koa.Context) => {
 });
 
 app.use(errorHandler);
+app.use(cors({allowMethods: ['GET', 'DELETE', 'POST', 'OPTIONS']}));
 app.use(serve('./src/public', {extensions: ['html']}));
 app.use(bodyParser());
-app.use(NotificationController.routes());
+app.use(NotificationRouter.routes());
+app.use(NotificationRouter.allowedMethods())
 app.use(notFoundHandler.routes());
 
 app.listen(8000);

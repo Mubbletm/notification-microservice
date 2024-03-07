@@ -1,13 +1,13 @@
 import Koa from 'koa';
 import send from 'koa-send';
-import { Exception } from '../exception';
+import { HTTPException } from '../interfaces/http-exception';
 import HttpStatus from 'http-status-codes';
 
 export default async function errorHandler(ctx: Koa.Context, next: Koa.Next) {
 	try {
 		await next();
 	} catch (err: any) {
-		if (err instanceof Exception) {
+		if (err instanceof HTTPException) {
 			await err.requestHandler(ctx);
 			return;
 		}

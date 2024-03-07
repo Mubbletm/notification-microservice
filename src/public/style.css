@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+html, body {
+    margin: 0;
+    color: #23232E;
+    background-color: #EBEBF2;
+    font-family: 'Roboto', sans-serif;
+}
+
+.container {
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+    min-height: 100vb;
+    padding: 20px 25%;
+
+    justify-content: center;
+}
+
+h1, h2, h3, h4, h5, h6 {
+}
+
+button, input[type=button], input[type=submit] {
+
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 7px;
+    border: 1px solid #4C4C54;
+
+    width: fit-content;
+
+    &:hover {
+
+    }
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+
+    & > *:not(label) {
+        margin-bottom: 20px;
+    }
+
+    & input, button {
+        width: fit-content;
+    }
+}
+
+fieldset {
+    border-radius: 7px;
+    display: flex;
+    flex-direction: column;
+
+    & > *:not(label) {
+        margin-bottom: 20px;
+    }
+}
+
+textarea, input[type=text], input[type=date], input[type=datetime-local] {
+    padding: 10px;
+    border-radius: 7px;
+    border: solid 1px #4C4C54;
+    font-family: 'Roboto', sans-serif;
+}
+
+textarea {
+    resize: vertical;
+}
+
+code {
+    white-space: pre;
+
+    &.method {
+        background-color: gray;
+        padding: 5px 10px;
+        border-radius: 100px;
+        margin-right: 10px;
+
+        &.post {
+            background-color: greenyellow;
+        }
+
+        &.get {
+            background-color: cadetblue;
+        }
+
+        &.delete {
+            background-color: orangered;
+        }
+    }
+}
+
+.error {
+    color: red;
+}
+
+.success {
+    color: darkseagreen;
+}
+
+@media (max-device-width: 800px) or (max-width: 1200px) {
+    .container {
+        align-items: center;
+        padding: 0 10%;
+        & > * {
+            width: 100%;
+        }
+    }
+
+    form {
+        align-items: center;
+        & > * {
+            min-width: 60%;
+        }
+
+        width: 80%;
+    }
+}

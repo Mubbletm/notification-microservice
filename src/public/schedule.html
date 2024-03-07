@@ -3,52 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <title>Notification API</title>
-    <link rel="stylesheet" href="/vendors/skeleton.css">
+    <link rel="stylesheet" href="/style.css">
+    <script src="/sw-initializer.js"></script>
+    <script src="/notifications.js"></script>
 </head>
 <body>
-
-<script defer>
-    async function submit() {
-		const swRegistration = await navigator.serviceWorker.getRegistration();
-		const subscription = await swRegistration.pushManager.subscribe();
-
-		const data = new FormData(document.getElementById('form'));
-		const notification = new Notification(data.get('title'), {
-			body: data.get('body'),
-            vibrate: JSON.parse(`[${data.get('vibrate')}]`)
-        });
-
-		const httpBody = {
-			notification,
-            subscription: {
-				endpoint: subscription.endpoint,
-                keys: {
-					p256dh: subscription.getKey('p256dh'),
-                    auth: subscription.getKey('auth')
-                },
-                expirationTime: subscription.expirationTime
-            }
-        };
-        const headers = new Headers();
-		headers.set('Content-Type', 'application/json');
-		fetch(location.href, {body: JSON.stringify(httpBody), method: 'POST', headers:})
-    }
-</script>
-
-<div class="container" style="margin-top: 25%">
-    <h1>Schedule Notification</h1>
+<div class="container">
+    <h2>Schedule Notification</h2>
     <form id="form">
         <label for="date">Date</label>
         <input id="date" name="date" type="datetime-local" required/>
-
-        <label for="notification-title">Notification Title</label>
-        <input id="notification-title" name="title" type="text" required/>
-        <label for="notification-body">Notification Body</label>
-        <textarea name="body" id="notification-body" cols="30" rows="10"></textarea>
-        <label for="notification-vibrate">Notification Vibrate</label>
-        <input type="text" name="vibrate" id="notification-vibrate" pattern="( *[0-9]+ *,)*( *[0-9]+ *)" />
-        <br><input type="submit" value="Submit">
+        <fieldset>
+            <legend>Notification</legend>
+            <label for="notification-title">Title</label>
+            <input id="notification-title" name="title" type="text" required/>
+            <label for="notification-body">Body</label>
+            <textarea name="body" id="notification-body" cols="30" rows="10"></textarea>
+            <label for="notification-vibrate">Vibrate</label>
+            <input type="text" name="vibrate" id="notification-vibrate" pattern="( *[0-9]+ *,)*( *[0-9]+ *)"/>
+        </fieldset>
+        <span class="success" id="success"></span>
+        <span class="error" id="error"></span>
+        <br>
+        <button class="button-primary" type="button" onclick="processForm('form', ['date'])">Submit</button>
     </form>
+    <a href="/">< Go back</a>
 </div>
 </body>
 </html>
