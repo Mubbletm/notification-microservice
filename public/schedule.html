@@ -9,25 +9,25 @@
 </head>
 <body>
 <div class="container">
-    <h2>Cron Notification</h2>
+    <h2>Schedule Notification</h2>
     <form id="form">
-        <label for="cron">Cron</label>
-        <input id="cron" name="cron" type="text" placeholder="* * * * *" required/>
+        <label for="date">Date</label>
+        <input id="date" name="date" type="datetime-local" required/>
         <fieldset>
             <legend>Notification</legend>
             <label for="notification-title">Title</label>
-            <input id="notification-title" name="title" type="text" placeholder="Notification title" required/>
+            <input id="notification-title" name="title" type="text" required/>
             <label for="notification-body">Body</label>
-            <textarea name="body" id="notification-body" placeholder="The body of the notification." cols="1" rows="3"></textarea>
+            <textarea name="body" id="notification-body" cols="30" rows="10"></textarea>
             <label for="notification-vibrate">Vibrate</label>
-            <input type="text" name="vibrate" id="notification-vibrate" placeholder="100, 200, 100" pattern="( *[0-9]+ *,)*( *[0-9]+ *)"/>
+            <input type="text" name="vibrate" id="notification-vibrate" pattern="( *[0-9]+ *,)*( *[0-9]+ *)"/>
         </fieldset>
         <span class="success" id="success"></span>
         <span class="error" id="error"></span>
         <br>
-        <button class="button-primary" type="button" onclick="processForm('form', ['cron'])">Submit</button>
+        <button class="button-primary" type="button" onclick="processForm('form', ['date'])">Submit</button>
     </form>
-    <a href="/">< Go back</a>
+    <a href="/public">< Go back</a>
 </div>
 </body>
 </html>

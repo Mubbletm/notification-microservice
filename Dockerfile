@@ -16,6 +16,7 @@ LABEL authors="Noah Visser"
 
 RUN mkdir /dist/
 COPY --from=build /build/ /build/
+COPY --from=build /public/ /public/
 COPY --from=build package*.json /
 COPY --from=build /node_modules/ /node_modules/
 

@@ -24,7 +24,7 @@ async function addVAPIDkey(ctx: Koa.Context, next: Koa.Next) {
 app.use(cors({allowMethods: ['GET', 'DELETE', 'POST', 'OPTIONS']}));
 app.use(errorHandler);
 app.use(addVAPIDkey);
-app.use(serve('./src/public', {extensions: ['html']}));
+app.use(serve('public', {extensions: ['html']}));
 app.use(bodyParser());
 app.use(NotificationRouter.routes());
 app.use(NotificationRouter.allowedMethods())

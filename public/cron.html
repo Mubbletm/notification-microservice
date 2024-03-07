@@ -9,8 +9,10 @@
 </head>
 <body>
 <div class="container">
-    <h2>Run Notification</h2>
+    <h2>Cron Notification</h2>
     <form id="form">
+        <label for="cron">Cron</label>
+        <input id="cron" name="cron" type="text" placeholder="* * * * *" required/>
         <fieldset>
             <legend>Notification</legend>
             <label for="notification-title">Title</label>
@@ -23,9 +25,9 @@
         <span class="success" id="success"></span>
         <span class="error" id="error"></span>
         <br>
-        <button class="button-primary" type="button" onclick="processForm('form')">Submit</button>
+        <button class="button-primary" type="button" onclick="processForm('form', ['cron'])">Submit</button>
     </form>
-    <a href="/">< Go back</a>
+    <a href="/public">< Go back</a>
 </div>
 </body>
 </html>

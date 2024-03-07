@@ -24,7 +24,7 @@ class NotFoundException extends HTTPException {
 	public async requestHandler(ctx: Koa.Context): Promise<void> {
 		ctx.status = this.statusCode;
 		ctx.cookies.set('error', this.message, {httpOnly: false});
-		await send(ctx, 'src/app/views/404.html');
+		await send(ctx, 'public/404.html');
 	}
 }
 
