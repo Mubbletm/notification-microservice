@@ -1,12 +1,11 @@
 services:
   web:
-    build: https://github.com/Mubbletm/notification-microservice.git
+    build: https://github.com/Mubbletm/notification-microservice.git#main
     image: notification-microservice
     ports:
       - "90:8000"
     env_file:
-      - path: ./.env
-        required: true
+      - ./.env
     environment:
       DATABASE: "mongodb://mongo:27017"
       JWT_SECRET: ${JWT_SECRET}
