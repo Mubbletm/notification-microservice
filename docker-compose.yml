@@ -1,6 +1,7 @@
 services:
   web:
-    build: .
+    build: https://github.com/Mubbletm/notification-microservice.git
+    image: notification-microservice
     ports:
       - "90:8000"
     env_file:
