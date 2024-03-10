@@ -16,8 +16,8 @@ jobs:
           script: mkdir -p /opt/deployments/nms/ | docker compose down | 
             cd /opt/deployments/nms && 
             curl https://raw.githubusercontent.com/Mubbletm/notification-microservice/main/docker-compose-actions.yml > docker-compose.yml &&
-            echo JWT_SECRET=${{secrets.JWT}} > JWT.env &&
-            echo PUBLIC_VAPID_KEY=${{secrets.PUBLIC_VAPID}} > VAPID.pub.env &&
-            echo PRIVATE_VAPID_KEY=${{secrets.PRIVATE_VAPID}} > VAPID.env &&
+            echo 'JWT_SECRET=${{secrets.JWT}}' > JWT.env &&
+            echo 'PUBLIC_VAPID_KEY=${{secrets.PUBLIC_VAPID}}' > VAPID.pub.env &&
+            echo 'PRIVATE_VAPID_KEY=${{secrets.PRIVATE_VAPID}}' > VAPID.env &&
             echo '' > .env &&
             docker compose up -d --no-deps --build
