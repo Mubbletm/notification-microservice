@@ -2,6 +2,8 @@ services:
   web:
     build: https://github.com/Mubbletm/notification-microservice.git#main
     image: notification-microservice
+    depends_on:
+      - mongo
     ports:
       - "90:8000"
     environment:
